@@ -1,12 +1,13 @@
-import './code.css'
+import { redirect } from "vike/abort"
+import { usePageContext } from "../../renderer/usePageContext"
 
-export { Page }
+export const Page = () => {
 
-function Page() {
-  return (
-    <>
-      <h1>About</h1>
-      <p>Example of using Vike.</p>
-    </>
-  )
+    const { urlParsed: { search } } = usePageContext()
+
+    if (search.redirect) {
+        throw redirect("/")
+    }
+
+    return <div>about page</div>
 }

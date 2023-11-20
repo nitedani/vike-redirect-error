@@ -1,18 +1,13 @@
-import { Counter } from './Counter'
+import { redirect } from "vike/abort"
+import { usePageContext } from "../../renderer/usePageContext"
 
-export { Page }
+export const Page = () => {
 
-function Page() {
-  return (
-    <>
-      <h1>Welcome</h1>
-      This page is:
-      <ul>
-        <li>Rendered to HTML.</li>
-        <li>
-          Interactive. <Counter />
-        </li>
-      </ul>
-    </>
-  )
+    const { urlParsed: { search } } = usePageContext()
+
+    if (search.redirect) {
+        throw redirect("/about")
+    }
+
+    return <div>index page</div>
 }
